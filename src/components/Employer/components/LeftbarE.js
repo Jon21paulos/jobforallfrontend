@@ -2,6 +2,7 @@ import React from "react";
 import { Container, makeStyles, Typography } from "@material-ui/core";
 import {  Bookmark, List,ExitToApp,Home, Person,PhotoCamera,PlayCircleOutline,Settings,Storefront,TabletMac,} from "@material-ui/icons";
 import { useNavigate } from "react-router-dom";
+import WarningIcon from '@mui/icons-material/Warning';
 import useStyles from "../../styles";
 import { useDispatch } from "react-redux";
 import { logout } from "../../../redux/actions/auth";
@@ -37,17 +38,17 @@ const LeftbarE = () => {
         <PlayCircleOutline className={classes.icon} />
         <Typography className={classes.text}>Videos</Typography>
       </div>
-      <div className={classes.item}>
+      <div className={classes.item} onClick={()=>navigate('chat')}>
         <TabletMac className={classes.icon} />
-        <Typography className={classes.text}>Apps</Typography>
+        <Typography className={classes.text}>freelancers</Typography>
       </div>
-      <div className={classes.item}>
-        <Bookmark className={classes.icon} />
-        <Typography className={classes.text}>Collections</Typography>
+      <div className={classes.item} onClick={()=>navigate('warning')}>
+        <WarningIcon className={classes.icon} />
+        <Typography className={classes.text}>Notification</Typography>
       </div>
       <div className={classes.item}>
         <Storefront className={classes.icon} />
-        <Typography className={classes.text}>Market Place</Typography>
+        <Typography className={classes.text}>Contact freelancer</Typography>
       </div>
       <div className={classes.item}>
         <Settings className={classes.icon} />

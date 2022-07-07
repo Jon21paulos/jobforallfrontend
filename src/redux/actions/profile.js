@@ -1,4 +1,4 @@
-import { EDIT_JS_PROFILE,EDIT_EM_PROFILE ,READ_EM_PROFILE,READ_JS_PROFILE} from '../constants/actionTypes';
+import { EDIT_JS_PROFILE,EDIT_EM_PROFILE ,READ_EM_PROFILE,READ_JS_PROFILE,SET_PROFILE} from '../constants/actionTypes';
 import * as api from '../../api/index'
 
 export const EditJobseekerProfile = (id,formData) => async (dispatch) => {
@@ -36,6 +36,16 @@ export const EditJobseekerProfile = (id,formData) => async (dispatch) => {
       const { data } = await api.ReadJobseekerProfile(id);
   
       dispatch({ type: READ_JS_PROFILE, data });
+
+    } catch (error) {
+      console.log(error);
+    }
+  }; 
+
+  export const setProfile = (data) => async (dispatch) => {
+    try {
+  
+      dispatch({ type: SET_PROFILE, data });
 
     } catch (error) {
       console.log(error);

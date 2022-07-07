@@ -3,6 +3,7 @@ import {alpha,AppBar,Avatar,Badge,InputBase,makeStyles,Toolbar,Typography,} from
 import { Cancel, Mail, Notifications, Search } from "@material-ui/icons";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -60,6 +61,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const NavbarE = () => {
+  const {profileData} = useSelector((state) => ({profileData:state.pr.profileData}))  
+
   const [open, setOpen] = useState(false);
   const classes = useStyles({ open });
   const navigate = useNavigate();
@@ -68,10 +71,10 @@ const NavbarE = () => {
     <AppBar position="fixed">
       <Toolbar className={classes.toolbar}>
         <Typography variant="h6" className={classes.logoLg}>
-          Employer
+          {profileData.user.company_name}
         </Typography>
         <Typography variant="h6" className={classes.logoSm}>
-          LAMA
+          
         </Typography>
         <div className={classes.search}>
           <Search />
@@ -91,8 +94,8 @@ const NavbarE = () => {
           </Badge>
           <Avatar
             onClick={()=>navigate('profile')}
-            alt="Remy Sharp"
-            src="https://images.pexels.com/photos/8647814/pexels-photo-8647814.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+            alt=""
+            src={profileData.user.profile_photo}
           />
         </div>
       </Toolbar>

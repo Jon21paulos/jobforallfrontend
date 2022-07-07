@@ -1,10 +1,20 @@
 import React,{useState,useEffect} from 'react'
-import { Container,Avatar, makeStyles,Grid,Box,Link,Button,Checkbox,TextField,FormControlLabel, Typography } from "@material-ui/core";
+import { Container, makeStyles,Grid,Box,Link,Button,Checkbox,TextField,FormControlLabel, Typography } from "@material-ui/core";
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import useStyles from "../../styles";
 import {useSelector,useDispatch} from "react-redux"
-import { ReadEmployerProfile } from '../../../redux/actions/profile';
 import EditProfileE from './EditProfileE';
+import { styled } from '@mui/material/styles';
+import Badge from '@mui/material/Badge';
+import Avatar from '@mui/material/Avatar';
+import Stack from '@mui/material/Stack';
+
+const SmallAvatar = styled(Avatar)(({ theme }) => ({
+  width: 100,
+  height: 100,
+  border: `2px solid ${theme.palette.background.paper}`,
+  marginLeft :'200px',
+}));
 
 function ProfileE() {
   const classes = useStyles();
@@ -28,25 +38,74 @@ function ProfileE() {
             alignItems: 'center',
           }}
         >
-    
-          <img 
-            alt="Remy Sharp"
-            src={profileData.user.profile_photo}
-            width="700" height="500"       
-          /> 
+     <Stack direction="row" spacing={4}>
+
+        <Badge
+          overlap="circular"
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+          badgeContent={
+            <SmallAvatar alt="" src={profileData.user.profile_photo} />
+          }
+        >
+          <Avatar 
+
+          sx={{ width:800, height: 250 ,margin: 2}}
           
-          <Typography component="h1" variant="h5">
+          src={profileData.user.profile_photo} variant="rounded" display='block' />
+        </Badge>
+
+        </Stack>
+        <Grid container spacing={2} margin={4}>
+          <Grid item xs={4}>
+            <Typography>Company Name</Typography>
+          </Grid>
+          <Grid item xs={8}>
+            <Typography component="h1" variant="h6">
             {profileData.user.company_name}
-          </Typography>
-          <Typography component="h1" variant="h5">
-            {profileData.user.description}
-          </Typography>
-          <Typography component="h1" variant="h5">
-            {profileData.user.company_name}
-          </Typography>
-          <Typography component="h1" variant="h5">
+            </Typography>
+          </Grid>
+          <Grid item xs={4}>
+            <Typography>Address</Typography>
+          </Grid>
+          <Grid item xs={8}>
+            <Typography component="h1" variant="h6">
+            {profileData.user.adderss}
+            </Typography>
+          </Grid>
+          <Grid item xs={4}>
+            <Typography>Phone number</Typography>
+          </Grid>
+          <Grid item xs={8}>
+            <Typography component="h1" variant="h6">
             {profileData.user.phone}
-          </Typography>
+            </Typography>
+          </Grid>
+          <Grid item xs={4}>
+            <Typography>Description</Typography>
+          </Grid>
+          <Grid item xs={8}>
+            <Typography component="h1" variant="h6">
+            {profileData.user.description}
+            </Typography>
+          </Grid>
+          <Grid item xs={4}>
+            <Typography>Activities</Typography>
+          </Grid>
+          <Grid item xs={8}>
+            <Typography component="h1" variant="h6">
+            {profileData.user.activities}
+            </Typography>
+          </Grid>
+          <Grid item xs={4}>
+            <Typography>Objective</Typography>
+          </Grid>
+          <Grid item xs={8}>
+            <Typography component="h1" variant="h6">
+            {profileData.user.objective}
+            </Typography>
+          </Grid>
+        </Grid>     
+      
         </Box>
         :
         <EditProfileE profileData={profileData} setisedit={setisedit}/>

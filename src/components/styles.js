@@ -38,6 +38,12 @@ const useStyles = makeStyles((theme) => ({
         display: "none",
       },
     },
+    danger:{
+      backgroundColor:'red'
+    },
+    warning:{
+      backgroundColor:'yellow'
+    }
   }));
 
 export default useStyles;  

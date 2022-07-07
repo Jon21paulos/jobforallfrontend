@@ -3,8 +3,9 @@ import { Container, makeStyles,Grid,CircularProgress } from "@material-ui/core";
 import { useDispatch ,useSelector} from "react-redux";
 import useStyles from "../../../styles";
 import { useNavigate } from "react-router-dom";
-import { getApplied } from "../../../../redux/actions/applied";
+import { getApplier } from "../../../../redux/actions/applier";
 import Applied from "./applied/Applied";
+import { Pagination } from "@mui/material";
 
 function AppliedList() {
   
@@ -12,9 +13,10 @@ function AppliedList() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const {loading} = useSelector((s) => ({loading:s.appliedR.loading}))
-  const {applied} = useSelector((s) => ({applied:s.appliedR.applied}))
+  const {applied} = useSelector((s) => ({applied:s.applierR.applier.results}))
+  const {count} = useSelector((s) => ({count:s.applierR.applier.count}))
 
+  const page = 1;
   const {profileData} = useSelector((state) => ({profileData:state.pr.profileData}))  
 
 
@@ -23,23 +25,28 @@ function AppliedList() {
   }, [])
   
   const getData=()=>{
-    dispatch(getApplied(navigate,profileData.user.JobseekerId))
+    dispatch(getApplier(navigate,'',profileData.user.JobseekerId,page))
   }
   
-
-  console.log("fg",applied)
+  const handleChange= async (event,page)=>{
+    dispatch(getApplier(navigate,'',profileData.user.JobseekerId,page))
+  }
 
   return(
       <Container className={classes.container}>
           
       {
-        loading ? <CircularProgress /> : (
-        <Grid className={classes.container} container alignItems="stretch" spacing={3}>
+        !applied? <CircularProgress /> : (
+        <Grid container alignItems="stretch" spacing={3}>
           {applied.map((applied) => (
             <Grid key={applied.ApplyId} item xs={12} sm={6} md={6}>
               <Applied applied={applied} />
             </Grid>
           ))}
+           <Pagination
+              count={Math.ceil(count/10)}
+              onChange={handleChange}
+            />
         </Grid>
             )
         }

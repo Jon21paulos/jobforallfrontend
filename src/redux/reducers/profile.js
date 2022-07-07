@@ -1,6 +1,6 @@
 import * as actionType from '../constants/actionTypes';
 
-const profileReducer = (state = { profileData: null, loading: true }, action) => {
+const profileReducer = (state = { profileData: null, loading: true, profile:null }, action) => {
   
     switch (action.type) {
         case actionType.EDIT_JS_PROFILE:
@@ -21,6 +21,9 @@ const profileReducer = (state = { profileData: null, loading: true }, action) =>
         
         case actionType.READ_EM_PROFILE:
                 return {...state,profileData:action.data,loading:false}
+        
+        case actionType.SET_PROFILE:
+                return {...state,profile:action.data}        
 
         case actionType.RESET:
             return {...state,profileData:null, loading:true}

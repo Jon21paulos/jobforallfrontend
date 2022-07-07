@@ -1,6 +1,7 @@
-import React from 'react';
+import React,{useState} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
+import { Snackbar } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -10,12 +11,14 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { useDispatch } from 'react-redux';
+import { useDispatch ,useSelector} from 'react-redux';
 import { signin } from '../../redux/actions/auth';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 export default function SignIn() {
+ const [snackbar, setSnackbar] = useState(false)
+ const {error} = useSelector((state) => ({error:state.auth}))
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -27,7 +30,10 @@ export default function SignIn() {
       username: data.get('username'),
       password: data.get('password'),
     }
+    console.log('your 1 error is ',error)
     dispatch(signin(form,navigate));  
+    console.log('your error is ',error)
+
   };
 
   return (
@@ -96,6 +102,7 @@ export default function SignIn() {
           </Box>
         </Box>
       </Container>
+      
     </>
   );
 }

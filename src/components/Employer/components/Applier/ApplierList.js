@@ -5,15 +5,17 @@ import useStyles from "../../../styles";
 import {getApplier,setApplier} from '../../../../redux/actions/applier'
 import { useNavigate } from "react-router-dom";
 import Applier from "./Applier/Applier";
+import { Pagination } from "@mui/material";
 
 function ApplierList() {
   
   const classes = useStyles();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const page = 1;
   const {loading} = useSelector((s) => ({loading:s.applierR.loading}))
-  const {applier} = useSelector((s) => ({applier:s.applierR.applier}));
+  const {applier} = useSelector((s) => ({applier:s.applierR.applier.results}));
+  const {count} = useSelector((s) => ({applier:s.applierR.applier.count}));
 
   const {profileData} = useSelector((state) => ({profileData:state.pr.profileData}))  
 
@@ -23,22 +25,14 @@ function ApplierList() {
   }, [])
   
   const getData=()=>{
-    dispatch(getApplier(navigate,profileData.user.EmployerId))
+    dispatch(getApplier(navigate,profileData.user.EmployerId,'',page))
   }
   
-  const handleChange = (e) =>{
-    const {name, checked} = e.target;
-    console.log("name",checked)
-    let tempApplier = applier.map((ap)=>
-      ap.ApplyId === name ? {...ap,isChecked: checked}: ap
-    );
-    dispatch(setApplier(tempApplier));
-    console.log("jobani",tempApplier)
-
-  }   
+  const handleChange= async (event,page)=>{
+    dispatch(getApplier(navigate,profileData.user.EmployerId,'',page))
+  }
 
 
-  console.log("fg",applier)
 
   return(
       <Container className={classes.container}>
@@ -48,9 +42,14 @@ function ApplierList() {
         <Grid className={classes.container} container alignItems="stretch" spacing={3}>
           {applier.map((applier) => (
             <Grid key={applier.ApplyId} item xs={12} sm={6} md={6}>
-              <Applier handleChange={handleChange} applier={applier} />
+              <Applier applier={applier} />
             </Grid>
           ))}
+          
+          <Pagination
+              count={Math.ceil(count/10)}
+              onChange={handleChange}
+            />
         </Grid>
             )
         }

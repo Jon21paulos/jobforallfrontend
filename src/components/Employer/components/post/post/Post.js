@@ -1,50 +1,61 @@
-import React from "react";
-import {  Button,Card,CardActionArea,CardActions,CardContent,CardMedia,makeStyles,Typography,} from "@material-ui/core";
+import React,{useState} from "react";
+import {  Button,Card,CardActionArea,CardActions,CardContent,CardMedia,makeStyles,Typography,} from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import { useDispatch } from "react-redux";  
 import { deletePost } from "../../../../../redux/actions/post";
 import useStyles from "../../../../styles";
 import { useNavigate } from "react-router-dom";
-const Post = ({ post }) => {
-const classes = useStyles();
-const dispatch = useDispatch();
-const navigate = useNavigate();
 
-const handleDelete = (id) =>{
-    dispatch(deletePost(id,navigate))
-}
 
-const handleEdit = (id) =>{
-    console.log("your id is", id)
-}
-return (
-    <Card className={classes.card}>
-    <CardActionArea>
-        {/* <CardMedia className={classes.media} image={img} title="My Post" /> */}
+const Post = ({ post,setisedit,setpostData }) => {
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const classes = useStyles();
+
+    const handleDelete = (id) =>{
+        dispatch(deletePost(id,navigate))
+    }
+
+    const handleEdit = (post) =>{
+        setpostData(post)
+        setisedit(false)
+    }
+
+    return (
+        <Card sx={{ minWidth: 275 }} className={classes.card}>
         <CardContent>
-        <Typography gutterBottom variant="h5">
+          <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+            {post.City}
+          </Typography>
+          <Typography variant="h5" component="div">
             {post.Title}
-        </Typography>
-        <Typography variant="body2">
-            {post.Description}
-        </Typography>
-        <Typography variant="body2">
+          </Typography>
+          <Typography sx={{ mb: 1.5 }} color="text.secondary">
+            {post.Salary}
+          </Typography>
+          <Typography sx={{ mb: 1.5 }} color="text.secondary">
             {post.Jobtype}
-        </Typography>
-        <Typography variant="body2">
+          </Typography>
+          <Typography sx={{ mb: 1.5 }} color="text.secondary">
             {post.Jobtime}
-        </Typography>
+          </Typography>
+          <Typography variant="body2">
+            {post.Description}
+          </Typography>
         </CardContent>
-    </CardActionArea>
-    <CardActions>
-        <Button size="small" color="primary" onClick={()=>handleDelete(post.JobId)}>
-        Delete post
-        </Button>
-        <Button size="small" color="primary" onClick={()=>handleEdit(post.JobId)}>
-        Edit post
-        </Button>
-    </CardActions>
-    </Card>
-);
+        <CardActions>
+            <Button variant="outlined" startIcon={<DeleteIcon />}  onClick={()=>handleDelete(post.JobId)}>
+                Delete post
+            </Button>
+            <Button  variant="outlined" startIcon={<EditIcon />}  onClick={()=>handleEdit(post)}>
+                Edit post
+            </Button>
+            
+        </CardActions>
+      </Card>
+    );
 };
 
 export default Post;

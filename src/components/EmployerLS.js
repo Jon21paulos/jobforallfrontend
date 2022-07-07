@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Typography,Grid, TextField,Button,Stepper,Step,StepLabel} from "@material-ui/core";
+import { Typography,Grid,Container, TextField,Button,Stepper,Step,StepLabel} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { useForm,Controller,FormProvider,useFormContext} from "react-hook-form";
 import { signupEm } from "../redux/actions/auth";
@@ -164,9 +164,16 @@ const EmployerLS = () => {
       </Stepper>
 
       {activeStep === steps.length ? (
-        <Typography variant="h3" align="center">
-          Thank You
-        </Typography>
+        <Container>
+           <Typography variant="h3" align="center">
+           Thank You
+          </Typography>  
+          <a href="/signin"
+                >
+                  go to signin page
+          </a>
+        </Container>
+        
       ) : (
         <>
           <FormProvider {...methods}>

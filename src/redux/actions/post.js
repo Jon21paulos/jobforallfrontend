@@ -1,13 +1,13 @@
-import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE } from '../constants/actionTypes';
+import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE,REMOVE_JOB } from '../constants/actionTypes';
 import { logout } from './auth';
 
 import * as api from '../../api/index'
 
-export const getPosts = (navigate) => async (dispatch) => {
+export const getPosts = (navigate,page,path) => async (dispatch) => {
   try {
-    const { data } = await api.fetchPosts();
+    const { data } = await api.fetchPosts(page,path);
 
-    dispatch({ type: FETCH_ALL, payload: data.results});
+    dispatch({ type: FETCH_ALL, payload: data});
   } catch (error) {
     if(error.response.status == 401){
       console.log("unauthirized access")
@@ -32,8 +32,8 @@ export const createPost = (post,navigate) => async (dispatch) => {
 export const updatePost = (id, post,navigate) => async (dispatch) => {
   try {
     const { data } = await api.updatePost(id, post);
-
-    dispatch({ type: UPDATE, payload: data });
+    console.log(data)
+    dispatch({ type: UPDATE, payload: data.message });
   } catch (error) {
     if(error.response.status == 401){
       console.log("unauthirized access")
@@ -53,5 +53,13 @@ export const deletePost = (id,navigate) => async (dispatch) => {
       console.log("unauthirized access")
       dispatch(logout(navigate))
     }
+  }
+};
+
+export const removeJob = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: REMOVE_JOB, payload: id });
+  } catch (error) {
+    console.log(error)
   }
 };

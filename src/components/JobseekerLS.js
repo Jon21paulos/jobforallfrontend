@@ -202,6 +202,11 @@ const JobseekerLS = () => {
           <Typography variant="h3" align="center">
             Thank You
           </Typography>
+          <a
+                  href="/signin"
+                >
+                  go to signin page
+          </a>
         </Container>
        
       ) : (

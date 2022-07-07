@@ -1,6 +1,6 @@
 import * as actionType from '../constants/actionTypes';
 import { API } from '../../api';
-const authReducer = (state = { authData: null }, action) => {
+const authReducer = (state = { authData: null,error:null }, action) => {
   
     switch (action.type) {
         case actionType.SIGNIN:
@@ -20,7 +20,8 @@ const authReducer = (state = { authData: null }, action) => {
         case actionType.LOGOUT:
             localStorage.clear();
             return { ...state, authData: null,  };
-
+        case actionType.SIGNIN_ERROR:
+            return {...state, error:action.data}
         default:
             return state;
   }

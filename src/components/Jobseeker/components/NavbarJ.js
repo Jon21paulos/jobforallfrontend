@@ -12,6 +12,7 @@ import {
   import { Cancel, Mail, Notifications, Search } from "@material-ui/icons";
   import { useState } from "react";
   import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
   const useStyles = makeStyles((theme) => ({
     toolbar: {
@@ -71,12 +72,15 @@ import {
   const NavbarJ = () => {
     const [open, setOpen] = useState(false);
     const classes = useStyles({ open });
+    const {profileData} = useSelector((state) => ({profileData:state.pr.profileData}))  
+
     const navigate = useNavigate();
+
     return (
       <AppBar position="fixed">
         <Toolbar className={classes.toolbar}>
           <Typography variant="h6" className={classes.logoLg}>
-            Jobseeker
+            {profileData.user.name}
           </Typography>
           <Typography variant="h6" className={classes.logoSm}>
             LAMA
@@ -99,8 +103,8 @@ import {
             </Badge>
             <Avatar
               onClick={()=>navigate('profile')}
-              alt="Remy Sharp"
-              src="https://images.pexels.com/photos/8647814/pexels-photo-8647814.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+              alt=""
+              src={profileData.user.profile_photo}
             />
           </div>
         </Toolbar>

@@ -24,7 +24,7 @@ function Home() {
   return (
     <div>
         {
-           accountData ? accountData.user.is_employer? navigate('employer'):navigate('jobseeker') :<h2>Loading</h2>
+           accountData ? accountData.user.is_staff?navigate('admin'):accountData.user.is_employer? navigate('employer'):navigate('jobseeker') :<h2>Loading</h2>
 
             // accountData? accountData.user.is_employer?<EmployerHome/>:<JobSeekerHome/>: <h2>Loading</h2>
         }

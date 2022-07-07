@@ -1,4 +1,4 @@
-import { READ_APPLIER ,APPLY_POST, READ_APPLIED,SET_APPLIER} from '../constants/actionTypes';
+import { READ_APPLIER,DELETE_APPLIER, APPLY_POST,SET_APPLIER,FILTER_APPLIER} from '../constants/actionTypes';
 
 const initialState = {
   applier:[],
@@ -10,11 +10,20 @@ const applierReducer = (state = initialState, action) => {
     case READ_APPLIER:
       return { ...state, applier: action.payload, loading:false}
     case APPLY_POST:
-        console.log("user",action.payload.user)
-        return { ...state, applier: [...state.applier, action.payload.user] };
+        return { ...state, applier: [...state.applier.results, action.payload.user] };
     case SET_APPLIER:
-      console.log("haset",action.payload)
-      return { ...state, applier: action.payload, loading:false}
+      return { ...state, applier: action.payload}
+    case DELETE_APPLIER:
+      return { ...state, applier: state.applier.filter((app) => app.ApplyId !== action.payload) };
+    case FILTER_APPLIER:
+      return {...state, applier:
+           state.applier.results.filter(function (a){
+            return a.ApplierId.degree == action.payload.degree 
+                //  a.ApplierId.grade == action.payload.grade ||
+                //  a.ApplierId.year == action.payload.year ||
+                //  a.ApplierId.adderss == action.payload.adderss
+        })
+      }
     default:
       return state;
   }

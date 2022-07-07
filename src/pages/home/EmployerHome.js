@@ -28,7 +28,7 @@ const EmployerHome = () => {
 
   const {accountData} = useSelector((state) => ({accountData:state.ar.accountData}))
   const {loading} = useSelector((state) => ({loading:state.pr.loading}))
- 
+  
   
   useEffect(() => {
     accountData.user.is_employer? getData():navigate(-1)
@@ -36,7 +36,6 @@ const EmployerHome = () => {
   
   const getData=()=>{
     dispatch(ReadEmployerProfile(accountData.user.id))
-    dispatch(getPosts(navigate))
   }
 
   return (

@@ -187,6 +187,20 @@ function EditProfileJ({profileData,setisedit}) {
               onChange={(e) => setPostData({ ...postData, detail: e.target.value })} 
               
             />
+
+          <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="skills"
+              label="skills"
+              type="skills"
+              id="skills"
+              autoComplete="skills"
+              value={postData.skills} 
+              onChange={(e) => setPostData({ ...postData, skills: e.target.value })} 
+              
+            />
    
 
              <TextField

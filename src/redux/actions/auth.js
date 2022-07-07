@@ -1,4 +1,4 @@
-import { SIGNIN,SIGNUP,LOGOUT, RESET} from '../constants/actionTypes';
+import { SIGNIN,SIGNUP,LOGOUT, RESET,SIGNIN_ERROR,SIGNUP_ERROR} from '../constants/actionTypes';
 import * as api from '../../api/index'
 
 export const signin = (formData,navigate) => async (dispatch) => {
@@ -8,9 +8,14 @@ export const signin = (formData,navigate) => async (dispatch) => {
      dispatch({ type: SIGNIN, data });
      navigate('/home')
 
-    // router.push('/');
   } catch (error) {
-    console.log("jon",error);
+    if(error.response.status===401){
+      alert("username or password incorrect");
+
+    }else{
+      alert("please enter valid input");
+    }
+
   }
 };
 
@@ -22,7 +27,13 @@ export const signupJs = (formData) => async (dispatch) => {
 
     // router.push('/');
   } catch (error) {
-    console.log(error);
+    console.log(error.response.status)
+    if(error.response.status===400){
+      alert("user already exist");
+    }else{
+      alert("please enter valid input");
+    }
+
   }
 };
 
@@ -34,7 +45,13 @@ export const signupEm = (formData) => async (dispatch) => {
   
       // router.push('/');
     } catch (error) {
-      console.log(error);
+      if(error.response.status===400){
+        alert("user already exist");
+  
+      }else{
+        alert("please enter valid input");
+      }
+  
     }
   };
 

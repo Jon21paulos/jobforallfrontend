@@ -1,15 +1,16 @@
-import { FETCH_ALL, CREATE, UPDATE, DELETE, RESET } from '../constants/actionTypes';
+import { FETCH_ALL, CREATE, UPDATE, DELETE, RESET,REMOVE_JOB } from '../constants/actionTypes';
 
 const initialState = {
-  posts:[]
+  posts:[],
+  count:null,
+  next:null,
+  prev:null
 }
 
 const postReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_ALL:
-        console.log(action.payload)
-      // return action.payload;
-      return { ...state, posts: action.payload}
+      return { ...state, posts: action.payload.results,count:action.payload.count,next:action.payload.next,prev:action.payload.previous}
     case CREATE:
       return { ...state, posts: [...state.posts, action.payload] };
     case UPDATE:
@@ -18,6 +19,10 @@ const postReducer = (state = initialState, action) => {
       return { ...state, posts: state.posts.filter((post) => post.JobId !== action.payload) };
     case RESET:
       return {...state,posts:[]}
+    case REMOVE_JOB:
+      return { ...state, posts: state.posts.filter((post) => post.JobId !== action.payload) };
+     
+
     default:
       return state;
   }
